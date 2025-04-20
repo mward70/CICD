@@ -26,5 +26,8 @@ jobs:
           cd server && npm install
           cd ../client && npm install
 
+      - name: Build server
+        run: npm run build
+
       - name: Run Cypress tests
-        run: ./node_modules/.bin/start-server-and-test dev http://localhost:3001 "npx cypress run --browser electron"
+        run: ./node_modules/.bin/start-server-and-test "node server/dist/server.js" http://localhost:3001 "npx cypress run --browser electron"
