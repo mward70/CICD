@@ -40,6 +40,4 @@ jobs:
         run: npm run build
 
       - name: Run Cypress tests
-        env:
-          MONGODB_URI: mongodb://127.0.0.1:27017/techquiz
-        run: ./node_modules/.bin/start-server-and-test "node server/dist/server.js" http://localhost:3001 "npx cypress run --browser electron"
+        run:  run: ./node_modules/.bin/start-server-and-test "node server/dist/server.js" http://localhost:3001 "npx cypress run --component --browser electron"
