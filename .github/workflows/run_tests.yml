@@ -26,8 +26,11 @@ jobs:
           cd server && npm install
           cd ../client && npm install
 
+      - name: Install Cypress globally
+        run: npm install --location=global cypress
+
       - name: Verify Cypress
-        run: npx cypress verify
+        run: cypress verify
 
       - name: Run Cypress tests
-        run: npx cypress run --browser electron
+        run: cypress run --browser electron
