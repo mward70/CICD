@@ -1,3 +1,46 @@
+# name: Checking Tests
+
+# on:
+#   pull_request:
+#     branches:
+#       - develop
+
+# jobs:
+#   test:
+#     name: Checking Tests
+#     runs-on: ubuntu-latest
+
+#     services:
+#       mongo:
+#         image: mongo:6
+#         ports:
+#           - 27017:27017
+#         options: >-
+#           --health-cmd="mongosh --eval 'db.adminCommand(\"ping\")'"
+#           --health-interval=10s
+#           --health-timeout=5s
+#           --health-retries=5
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 21.x
+
+#       - name: Install dependencies
+#         run: |
+#           npm ci || npm install --include=dev
+#           cd server && npm install
+#           cd ../client && npm install
+
+#       - name: Build server
+#         run: npm run build
+
+#       - name: Run Cypress tests
+#         run:  run: ./node_modules/.bin/start-server-and-test "node server/dist/server.js" http://localhost:3001 "npx cypress run --component --browser electron"
 name: Checking Tests
 
 on:
@@ -7,7 +50,7 @@ on:
 
 jobs:
   test:
-    name: Checking Tests
+    name: Run Cypress Component Tests
     runs-on: ubuntu-latest
 
     services:
@@ -39,5 +82,7 @@ jobs:
       - name: Build server
         run: npm run build
 
-      - name: Run Cypress tests
-        run:  run: ./node_modules/.bin/start-server-and-test "node server/dist/server.js" http://localhost:3001 "npx cypress run --component --browser electron"
+      - name: Run Cypress component tests
+        run: ./node_modules/.bin/start-server-and-test "node server/dist/server.js" http://localhost:3001 "npx cypress run --component --browser electron"
+        env:
+          MONGODB_URI: mongodb://127.0.0.1:27017/techquiz
