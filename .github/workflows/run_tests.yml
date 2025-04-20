@@ -26,8 +26,8 @@ jobs:
           cd server && npm install
           cd ../client && npm install
 
-      - name: Build App
-        run: npm run build
+      - name: Verify Cypress
+        run: npx cypress verify
 
       - name: Run Cypress tests
         run: npx cypress run --browser electron
