@@ -3,9 +3,9 @@ import db from '../config/connection.js';
 
 export default async (modelName: "Question", collectionName: string) => {
   try {
-    let modelExists = await models[modelName].db.db.listCollections({
+    let modelExists = await models[modelName]?.db?.db?.listCollections({
       name: collectionName
-    }).toArray()
+    })?.toArray() || [];
 
     if (modelExists.length) {
       await db.dropCollection(collectionName);
