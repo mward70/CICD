@@ -33,4 +33,4 @@ jobs:
         run: cypress verify
 
       - name: Run Cypress tests
-        run: cypress run --browser electron
+        run: npm run test:e2e
