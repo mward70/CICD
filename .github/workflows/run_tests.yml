@@ -21,13 +21,10 @@ jobs:
           node-version: 21.x
 
       - name: Install dependencies
-        run: npm install --include=dev
-
-      - name: Install Cypress globally
-        run: npm install --location=global cypress
-
-      - name: Verify Cypress
-        run: cypress verify
+        run: |
+          npm ci || npm install --include=dev
+          cd server && npm install
+          cd ../client && npm install
 
       - name: Run Cypress tests
-        run: npx start-server-and-test dev http://localhost:3001 "npx cypress run --browser electron"
+        run: ./node_modules/.bin/start-server-and-test dev http://localhost:3001 "npx cypress run --browser electron"
