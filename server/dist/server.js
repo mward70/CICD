@@ -13,10 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Serves static files in the entire client's dist folder
 app.use(express.static(path.resolve(__dirname, '../../client/dist')));
-//SPA fallback for React routing
-app.get('*', (_req, res) => {
-    res.sendFile(path.resolve(__dirname, '../../client/dist/index.html'));
-});
 app.use(routes);
 db.once('open', () => {
     app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
